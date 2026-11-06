@@ -1,0 +1,24 @@
+from django.contrib import admin
+from django.urls import path, include
+
+from jobs.dashboard_views import DashboardView
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+)
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+
+    path('api/jobs/', include('jobs.urls')),
+
+    path('api/interviews/', include('interviews.urls')),
+
+    path('api/dashboard/', DashboardView.as_view(), name='dashboard'),
+
+    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+
+    path('api/accounts/', include('accounts.urls')),
+]
